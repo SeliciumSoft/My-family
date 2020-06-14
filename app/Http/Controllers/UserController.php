@@ -72,7 +72,7 @@ class UserController extends Controller
 
             if (Hash::check($request['password'], $user->password)) {
                 // The passwords match...
-                $this->show($user);
+                return Redirect::route('user.show', $user);
 
             }
             else{
