@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{asset('css/icomoon.css')}}">
 
 
+
 </head>
 <body>
 <div class="mainbody container-fluid">
@@ -25,7 +26,7 @@
                                 <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                                     class="icon-bar"></span><span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="./ORqmj" style="margin-right:-8px; margin-top:-20px;">
+                            <a class="navbar-brand" href="#" style="margin-right:-8px; margin-top:-20px;">
                                 <img alt="Brand" src="{{asset('images/logo.png')}}" width="60px" height="60px">
                             </a>
                             <a class="navbar-brand" href="{{route('index')}}">My Family</a>
@@ -33,21 +34,23 @@
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li><a href="./ORqmj">Stream</a></li>
+                                <li><a href="#">Family Tree</a></li>
                                 <li><a href="#">My Activity</a></li>
                                 <li><span class="badge badge-important">2</span><a href="#"><i class="icon icon-bell-o" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+
+                                <li class="dropdown"><a href="#" class="dropdown-toggle"  data-toggle="dropdown">
                                     <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
                                         <img src="{{asset('images/profile-picture.jpg')}}" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
                                     </span>
                                         <span class="user-name">
-                                        John Doe
+                                        {{ $users->email }}
                                     </span>
                                         <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" >
                                         <li>
                                             <div class="navbar-content">
                                                 <div class="row">
@@ -56,7 +59,7 @@
                                                         <p class="text-center small">
                                                             <a href="./3X6zm">Change Photo</a></p>
                                                     </div>
-                                                    <div class="col-md-7">
+                                                    <div class="col-md-7" >
                                                         <span>John Doe</span>
                                                         <p class="text-muted small">
                                                             example@pods.tld</p>
@@ -84,6 +87,8 @@
                                         </li>
                                     </ul>
                                 </li>
+
+
                             </ul>
                         </div>
                     </div>
@@ -120,7 +125,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px;">John Doe <small>example@pods.tld</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        <h1 class="panel-title pull-left" style="font-size:30px;">User Name <small>{{ $users->email }}</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Friends
@@ -135,11 +140,9 @@
                             </ul>
                         </div>
                     </span>
-                    <br><br>
-                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="/tags/diaspora" class="tag">#diaspora</a> <a href="/tags/hashtag" class="tag">#hashtag</a> <a href="/tags/caturday" class="tag">#caturday</a>
                     <br><br><hr>
                     <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Documents</a>
                         <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
                         <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
                     </span>
@@ -164,22 +167,10 @@
                         <hr>
                         <p class="card-description">User Information</p>
                         <ul class="about">
-                            <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Name:</span><span class="about-item-detail">Santosh Ghimire</span></li>
+                            <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Name:</span><span class="about-item-detail">{{$users->userDetails->about ?? ''}}</span></li>
                             <li class="about-items"><i class="mdi mdi-mail-ru icon-sm "></i><span class="about-item-name">username:</span><span class="about-item-detail">santoshghimire</span> </li>
-                            <li class="about-items"><i class="mdi mdi-lock-outline icon-sm "></i><span class="about-item-name">Password:</span><span class="about-item-detail">**********</span></li>
-                            <li class="about-items"><i class="mdi mdi-format-align-left icon-sm "></i><span class="about-item-name">Bio:</span><span class="about-item-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto totam, nemo quidem delectus dolores vero porro inventore perferendis minus perspiciatis.</span> </li>
+                            <li class="about-items"><i class="mdi mdi-format-align-left icon-sm "></i><span class="about-item-name">Bio:</span><span class="about-item-detail">.</span> </li>
 
-                            <li class="about-items"><i class="mdi mdi-trophy-variant-outline icon-sm "></i><span class="about-item-name">Badges:</span><span class="about-item-detail">
-                       <button type="button" class="btn btn-success btn-rounded btn-icon">
-                        <i class="mdi mdi-star text-white"></i>
-                      </button>
-                        <button type="button" class="btn btn-info btn-rounded btn-icon">
-                        <i class="mdi mdi-check text-white"></i>
-                      </button>
-                       <button type="button" class="btn btn-danger btn-rounded btn-icon">
-                        <i class="mdi mdi-check text-white"></i>
-                      </button>
-                      </span> </li>
 
                         </ul>
                         <p class="card-description">Contact Information</p>

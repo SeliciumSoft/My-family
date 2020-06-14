@@ -37,4 +37,9 @@ class User extends Model
         'email_verified_at' => 'datetime',
     ];
 
+    public function userDetails()
+    {
+        return $this->hasOne('App\UserDetails');
+    }
+
 }

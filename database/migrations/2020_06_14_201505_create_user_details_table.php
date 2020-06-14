@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UsersDetails extends Migration
+class CreateUserDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class UsersDetails extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('users_details', function (Blueprint $table) {
+        Schema::create('user_details', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('username');
-            $table->string('profile_pic');
+            $table->string('profile_pic')->nullable();
             $table->string('gender');
             $table->string('occupation');
             $table->boolean('current occupation');
@@ -37,8 +36,6 @@ class UsersDetails extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('users_details');
+        Schema::dropIfExists('user_details');
     }
-
 }
