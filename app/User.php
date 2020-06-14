@@ -8,9 +8,8 @@ use Illuminate\Notifications\Notifiable;
 class User extends Model
 {
     //
-
     use Notifiable;
-
+    protected  $gard = 'user';
     /**
      * The attributes that are mass assignable.
      *
@@ -18,14 +17,13 @@ class User extends Model
      */
     protected $table = 'users';
     protected $fillable = [
-        'birthDate', 'email', 'password',
+        'firstName',
+        'lastName',
+        'email',
+        'birthDate',
+        'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -38,4 +36,5 @@ class User extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }

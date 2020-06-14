@@ -21,25 +21,35 @@
                 </div>
                 <div class="col-lg-2 col"></div>
                 <div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
-                    <form action="#" class="request-form ftco-animate">
+                    <form method="post" action="{{route('user.auth')}}" class="request-form ftco-animate">
+                        @csrf
+                        @if(count($errors)>0)
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li class="alert alert-danger">
+                                        {{$error}}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                         <div class="col-md-12 text-center">
                             <h1 style="font-family: 'Kaushan Script', cursive; color: #1a1a1a">Login</h1>
                         </div>
 
                         <div class="form-group">
                             <label for="" class="label">Email</label>
-                            <input type="email" class="form-control" placeholder="Example@email.com">
+                            <input type="email" class="form-control" placeholder="Example@email.com" name="email">
                         </div>
                         <div class="form-group">
                             <label for="" class="label">Password</label>
-                            <input type="password" class="form-control" placeholder="password">
+                            <input type="password" class="form-control" placeholder="password" name="password">
                         </div>
                         <div class="form-group">
                             <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" value="Search Vehicle" class="btn btn-primary py-3 px-4">
+                            <input type="submit" value="Login" class="btn btn-primary py-3 px-4">
                         </div>
 
                         <style>
@@ -99,8 +109,18 @@
                                 <div class="modal-body">
 
                                     <!-- content goes here -->
-                                    <form method="post" action="{{ route('users.store') }}">
+                                    <form method="post" action="{{ route('user.store') }}">
+
                                         @csrf
+                                        @if(count($errors)>0)
+                                            <ul>
+                                                @foreach($errors->all() as $error)
+                                                    <li class="alert alert-danger">
+                                                        {{$error}}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                            @endif
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email address</label>
                                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="exampleInputEmail1" placeholder="Enter email">
@@ -114,8 +134,8 @@
                                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="confirm_password">
                                         </div>
                                         <div class="form-group">
-                                            <label for="birthdate">Confirm Password</label>
-                                            <input type="date" class="form-control" id="birthdate">
+                                            <label for="birthdate">Birth Date</label>
+                                            <input type="date" class="form-control" id="birthdate" name="birthdate">
                                         </div>
 
                                         <div class="form-group ">

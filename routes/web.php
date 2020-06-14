@@ -22,7 +22,6 @@ Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
 
-Route::post('/users/store','UsersController@store')->name('users.store');
 
 Route::get('/about', function () {
     return view('pages.about');
@@ -30,7 +29,10 @@ Route::get('/about', function () {
 
 
 
-
 Auth::routes();
-
+Route::resource('user', 'UserController');
+Route::post('/user/auth','UserController@auth')->name('user.auth');
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::get('/user', 'UsersController@index');
+//Route::post('/register/user', 'UserController@store')->name('register-user');

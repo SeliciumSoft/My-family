@@ -83,6 +83,8 @@
             <div class="content">
                 <div class="title m-b-md">
                     Welcome To The Admin Dashboard
+                    {{ auth()->user()->name ?? ''}}
+
                 </div>
 
 
