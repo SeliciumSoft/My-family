@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Autoroad - Free Bootstrap 4 Template by Colorlib</title>
+    <title>My Family - Heritage builder</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -43,8 +43,6 @@
                 <li class="nav-item {{ Request::is('index') ? 'active' : 'no' }}"><a href="{{route('index')}}" class="nav-link">Home</a></li>
                 <li class="nav-item {{ Request::is('about') ? 'active' : 'no' }}"><a href="{{ route('about') }}" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-                <li class="nav-item"><a href="car.html" class="nav-link">Our Car</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -62,7 +60,7 @@
         <div class="row mb-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">About Autoroad</h2>
+                    <h2 class="ftco-heading-2">My Family</h2>
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
