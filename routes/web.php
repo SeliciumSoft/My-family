@@ -34,5 +34,6 @@ Route::resource('user', 'UserController');
 Route::post('/user/auth','UserController@auth')->name('user.auth');
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 //Route::get('/user', 'UsersController@index');
 //Route::post('/register/user', 'UserController@store')->name('register-user');

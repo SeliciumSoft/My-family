@@ -21,6 +21,8 @@
                 </div>
                 <div class="col-lg-2 col"></div>
                 <div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
+                    @if(auth()->guard('user')->user() == null)
+
                     <form method="post" action="{{route('user.auth')}}" class="request-form ftco-animate">
                         @csrf
                         @if(count($errors)>0)
@@ -96,7 +98,7 @@
                             <p  class="text-center">Don't have account? <a data-toggle="modal" data-target="#squarespaceModal" href="#" id="signup">Sign up here</a></p>
                         </div>
                     </form>
-
+                    @endif
                     <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -123,12 +125,12 @@
                                             @endif
                                         <div class="form-group" style="display: flex;flex-direction: row">
                                             <div style="padding-right: 10px">
-                                                <label for="exampleInputEmail1">First Name</label>
-                                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="first-name" id="exampleInputEmail1" placeholder="First Name">
+                                                <label for="last-name">First Name</label>
+                                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="first-name" id="" placeholder="First Name">
                                             </div>
                                             <div>
-                                                <label for="exampleInputEmail1">Last Name</label>
-                                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="last-name" id="exampleInputEmail1" placeholder="Last Name">
+                                                <label for="last-name">Last Name</label>
+                                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="last-name" id="" placeholder="Last Name">
                                             </div>
 
                                         </div>

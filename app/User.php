@@ -1,11 +1,12 @@
 <?php
 
 namespace App;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
     //
     use Notifiable;
@@ -41,5 +42,6 @@ class User extends Model
     {
         return $this->hasOne('App\UserDetails');
     }
+
 
 }

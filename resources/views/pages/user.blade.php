@@ -49,7 +49,9 @@
                                         <span class="user-name">
                                         {{ $users->email }}
                                     </span>
-                                        <b class="caret"></b></a>
+
+                                       <!-- <b class="caret"></b> -->
+                                    </a>
                                     <ul class="dropdown-menu" >
                                         <li>
                                             <div class="navbar-content">
@@ -57,7 +59,7 @@
                                                     <div class="col-md-5">
                                                         <img src="{{asset('images/profile-picture.jpg')}}" alt="Alternate Text" class="img-responsive" width="120px" height="120px" />
                                                         <p class="text-center small">
-                                                            <a href="./3X6zm">Change Photo</a></p>
+                                                            <a href="#">Change Photo</a></p>
                                                     </div>
                                                     <div class="col-md-7" >
                                                         <span>John Doe</span>
@@ -65,7 +67,7 @@
                                                             example@pods.tld</p>
                                                         <div class="divider">
                                                         </div>
-                                                        <a href="./56ExR" class="btn btn-default btn-xs"><i class="fa fa-user-o" aria-hidden="true"></i> Profile</a>
+                                                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-user-o" aria-hidden="true"></i> Profile</a>
                                                         <a href="#" class="btn btn-default btn-xs"><i class="fa fa-address-card-o" aria-hidden="true"></i> Contacts</a>
                                                         <a href="#" class="btn btn-default btn-xs"><i class="fa fa-cogs" aria-hidden="true"></i> Settings</a>
                                                         <a href="#" class="btn btn-default btn-xs"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Help!</a>
@@ -86,15 +88,32 @@
                                             </div>
                                         </li>
                                     </ul>
+
+                                </li>
+
+                                <li>
+                                    <a href="{{route('logout') }} " onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" style="font-size: 1.2em;font-weight: bold" title="Log out" alt="Log out">
+                                        <i class="icon icon-exit_to_app"></i>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </li>
 
 
                             </ul>
+                            <ul>
+
+                            </ul>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
         <div style="padding-top:50px;"> </div>
         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
             <div class="panel panel-default">
@@ -125,7 +144,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px;">User Name <small>{{ $users->email }}</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        <h1 class="panel-title pull-left" style="font-size:30px;">User Name <small>{{ $users->email ?? '' }}</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Friends

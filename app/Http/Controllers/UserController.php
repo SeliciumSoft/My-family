@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
@@ -48,6 +48,8 @@ class UserController extends Controller
         //
         $this->validate($request, [
             'email' => 'required| unique:users,email',
+            'first-name' => 'required',
+            'last-name'=>'required',
             'password' => 'required | min:8',
             'birthdate' => 'required',
             'confirm_password' => 'required',
@@ -55,18 +57,36 @@ class UserController extends Controller
 
 
         $user = new User([
+            'firstName' => $request['first-name'],
+            'lastName'=>$request['last-name'],
             'email' => $request['email'], // or $request->name
             'password' => Hash::make($request['password'] ) ,
             'birthDate' => $request['birthdate'],
 
         ]);
         $user->save();
-        return $this->index();
+        return $this->auth($request);
     }
 
     public function auth(Request $request)
     {
-        $user = User::where('email', '=', $request['email'])->first();
+
+
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:8'
+        ]);
+
+        if (Auth::guard('user')->attempt(['email' => $request['email'], 'password' => $request['password']], $request->get('remember'))) {
+
+            return Redirect::route('user.show', Auth::guard('user')->user());
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+
+
+
+        /*$user = User::where('email', '=', $request['email'])->first();
 
         if($user != null){
 
@@ -81,11 +101,13 @@ class UserController extends Controller
     }
         else{
             return Redirect::back()->withErrors('No account match with this email');
-        }
+        }*/
 
 
 
     }
+
+
     /**
      * Display the specified resource.
      *
