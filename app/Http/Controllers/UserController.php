@@ -18,9 +18,17 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+
+
+    }
+
+    public function profile($usr){
         return view('pages.user')->with([
-            'users'=>$users
+            'email'=> $usr->user()->email,
+            'firstName'=> $usr->user()->firstName,
+            'lastName'=> $usr->user()->lastName,
+
+
         ]);
 
     }
@@ -79,29 +87,10 @@ class UserController extends Controller
 
         if (Auth::guard('user')->attempt(['email' => $request['email'], 'password' => $request['password']], $request->get('remember'))) {
 
-            return Redirect::route('user.show', Auth::guard('user')->user());
+            return $this->show(Auth::guard('user'));
         }
 
-        return back()->withInput($request->only('email', 'remember'));
-
-
-
-        /*$user = User::where('email', '=', $request['email'])->first();
-
-        if($user != null){
-
-            if (Hash::check($request['password'], $user->password)) {
-                // The passwords match...
-                return Redirect::route('user.show', $user);
-
-            }
-            else{
-                return Redirect::back()->withErrors('wrong password');
-            }
-    }
-        else{
-            return Redirect::back()->withErrors('No account match with this email');
-        }*/
+        return back()->withInput($request->only('email', 'remember'))->withErrors('check your email or password');
 
 
 
@@ -111,18 +100,36 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param  \App\User
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      */
 
-    public function show(User $user)
+    public function show($u)
     {
-        //
-        return view('pages.user')->with([
-            'users'=>$user
-        ]);
+        if (Auth::guard('user')->user() == null){
+            return view('index');
+        }
+        elseif (gettype($u) != 'object' && ($u == Auth::guard('user')->user()->firstName ||  $u == Auth::guard('user')->user()->id) ){
+
+            return view('pages.user')->with([
+                'firstName' => Auth::guard('user')->user()->firstName,
+                'lastName' => Auth::guard('user')->user()->lastName,
+                'email' => Auth::guard('user')->user()->email
+            ]);
+
+        }
+        else{
+            return view('pages.user')->with([
+                'firstName' => Auth::guard('user')->user()->firstName,
+                'lastName' => Auth::guard('user')->user()->lastName,
+                'email' => Auth::guard('user')->user()->email
+            ]);
+        }
+
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

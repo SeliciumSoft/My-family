@@ -41,16 +41,18 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
 
-
-                                <li class="dropdown"><a href="#" class="dropdown-toggle"  data-toggle="dropdown">
+                                @if(Auth::guard('user')->user() != null)
+                                <li class="dropdown"><a href="{{route('user.show',Auth::guard('user')->user()->firstName)}}" class="dropdown-toggle"  data-toggle="dropdown">
                                     <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
                                         <img src="{{asset('images/profile-picture.jpg')}}" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
                                     </span>
-                                        <span class="user-name">
-                                        {{ $users->email }}
+                                        <span class="user-name" >
+
+                                               {{ Auth::guard('user')->user()->firstName }}
+
                                     </span>
 
-                                       <!-- <b class="caret"></b> -->
+                                       <!-- <b class="caret"></b>  -->
                                     </a>
                                     <ul class="dropdown-menu" >
                                         <li>
@@ -90,7 +92,7 @@
                                     </ul>
 
                                 </li>
-
+                                @endif
                                 <li>
                                     <a href="{{route('logout') }} " onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" style="font-size: 1.2em;font-weight: bold" title="Log out" alt="Log out">
@@ -140,14 +142,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" >
             <div class="panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body" >
                     <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px;">User Name <small>{{ $users->email ?? '' }}</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        <h1 class="panel-title pull-left" style="font-size:30px;">
+
+                            @if(Auth::guard('user')->user() != null)
+                                {{ Auth::guard('user')->user()->firstName.' '.Auth::guard('user')->user()->lastName }}
+
+
+                            <small>{{ Auth::guard('user')->user()->email  ?? '' }}</small>
+                            @endif
+                                <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Friends
+                                Family Members
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -158,6 +168,8 @@
                                 <li><a href="#"><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add a new aspect</a></li>
                             </ul>
                         </div>
+
+
                     </span>
                     <br><br><hr>
                     <span class="pull-left">
@@ -176,7 +188,7 @@
             <!-- Simple post content example. -->
 
             <div class="col-md-12 grid-margin stretch-card">
-                <div class="card">
+                <div class="card" >
                     <div class="card-body">
                         <div>
                             <p style="font-weight: bold; font-size: 1.3em;margin-top: 20px; margin-left: 20px ">About</p>
@@ -184,9 +196,29 @@
                         </div>
 
                         <hr>
-                        <p class="card-description">User Information</p>
+                        <style>
+                            .card-description{
+                                margin-left: 10px
+                            }
+                            .about{
+                                margin-left: 10px;
+                            }
+                            .about .about-item-name{
+                                font-weight: bold;
+                                color: #4e555b;
+                            }
+                        </style>
+                        <p class="card-description" style="">User Information</p>
                         <ul class="about">
-                            <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Name:</span><span class="about-item-detail">{{$users->userDetails->about ?? ''}}</span></li>
+                            <li class="about-items">
+                                <i class="mdi mdi-account icon-sm "></i>
+                                <span class="about-item-name">Name:</span>
+                                <span class="about-item-detail">
+                                    @if(Auth::guard('user')->user() != null)
+                                        {{ Auth::guard('user')->user()->firstName.' '.Auth::guard('user')->user()->lastName }}
+                                    @endif
+                                </span>
+                            </li>
                             <li class="about-items"><i class="mdi mdi-mail-ru icon-sm "></i><span class="about-item-name">username:</span><span class="about-item-detail">santoshghimire</span> </li>
                             <li class="about-items"><i class="mdi mdi-format-align-left icon-sm "></i><span class="about-item-name">Bio:</span><span class="about-item-detail">.</span> </li>
 

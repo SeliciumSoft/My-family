@@ -31,8 +31,9 @@ Route::get('/about', function () {
 
 Auth::routes();
 Route::resource('user', 'UserController');
-Route::post('/user/auth','UserController@auth')->name('user.auth');
+Route::post('/user/auth/','UserController@auth')->name('user.auth');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user/profile/', 'HomeController@profile')->name('user.profile');
 
 
 //Route::get('/user', 'UsersController@index');

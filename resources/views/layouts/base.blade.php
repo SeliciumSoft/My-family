@@ -44,6 +44,26 @@
                 <li class="nav-item {{ Request::is('about') ? 'active' : 'no' }}"><a href="{{ route('about') }}" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                @if(Auth::guard('user')->user() != null)
+
+                    <li class="nav-item"><a href="{{route('about')}}" class="nav-link">{{Auth::guard('user')->user()->lastName}}</a></li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button style="margin-top: 7px" class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{Auth::guard('user')->user()->lastName}}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{route('user.show',Auth::guard('user')->user())}}">Profile</a>
+                                <a href="{{route('logout') }} " onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"  class="dropdown-item" href="#">Log out</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -66,6 +86,7 @@
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+
                     </ul>
                 </div>
             </div>
