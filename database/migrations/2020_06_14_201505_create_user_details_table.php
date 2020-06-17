@@ -17,13 +17,29 @@ class CreateUserDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('username');
             $table->string('profile_pic')->nullable();
-            $table->string('gender');
-            $table->string('occupation');
-            $table->boolean('current occupation');
-            $table->boolean('nationality');
-            $table->string('about');
+            $table->string('gender')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('mobile')->nullable()->unique();
+            $table->string('country')->nullable()->unique();
+            $table->string('website')->nullable();
+            $table->string('education')->nullable();
+            $table->boolean('education-current')->nullable();
+            $table->string('education-country')->nullable();
+            $table->string('highest-degree')->nullable();
+            $table->string('education-university')->nullable();
+
+            $table->string('work')->nullable();
+            $table->boolean('work-current')->nullable();
+            $table->string('company')->nullable();
+            $table->string('work-country')->nullable();
+            $table->string('fb')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('nationality')->nullable();
+            $table->text('about')->nullable();
+            $table->string('relationship-status')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
