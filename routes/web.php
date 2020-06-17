@@ -35,6 +35,9 @@ Route::post('/user/auth/','UserController@auth')->name('user.auth');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/profile/', 'HomeController@profile')->name('user.profile');
 
+Route::get('/edit', function () {
+    return view('pages.edit-user');
+});
 
 //Route::get('/user', 'UsersController@index');
 //Route::post('/register/user', 'UserController@store')->name('register-user');

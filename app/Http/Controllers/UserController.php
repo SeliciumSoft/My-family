@@ -110,9 +110,9 @@ class UserController extends Controller
         if (Auth::guard('user')->user() == null){
             return view('index');
         }
-        elseif (gettype($u) != 'object' && ($u == Auth::guard('user')->user()->firstName ||  $u == Auth::guard('user')->user()->id) ){
+        elseif ( gettype($u) != 'object' && ($u == Auth::guard('user')->user()->firstName ||  $u == Auth::guard('user')->user()->id) ){
 
-            return view('pages.user')->with([
+            return view('pages.user' )->with([
                 'firstName' => Auth::guard('user')->user()->firstName,
                 'lastName' => Auth::guard('user')->user()->lastName,
                 'email' => Auth::guard('user')->user()->email
@@ -135,11 +135,17 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $user)
     {
         //
+        return view('pages.edit-user')->with(
+            [
+                'user'=>$user
+            ]
+        );
+
     }
 
     /**
@@ -152,6 +158,33 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $user = User::find($user->id);
+
+        $user->name = 'New Flight Name';
+
+        $user->save();
+
+        $this->validate($request, [
+            'email' => 'required| unique:users,email',
+            'first-name' => 'required',
+            'last-name'=>'required',
+            'password' => 'required | min:8',
+            'birthdate' => 'required',
+            'confirm_password' => 'required',
+        ]);
+
+
+        $user = new User([
+            'firstName' => $request['first-name'],
+            'lastName'=>$request['last-name'],
+            'email' => $request['email'], // or $request->name
+            'password' => Hash::make($request['password'] ) ,
+            'birthDate' => $request['birthdate'],
+
+        ]);
+        $user->save();
+        return $this->auth($request);
+
     }
 
     /**
