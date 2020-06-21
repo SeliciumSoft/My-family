@@ -157,6 +157,31 @@ class UserController extends Controller
      * @param int $user_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+ /*   public function update_avatar(Request $request, int $user_id){
+
+        if ($request->hasFile('avatar')){
+
+            $imgStore = $request->file('avatar')->store('/public');
+            $imgName = explode('/',$imgStore);
+            $imgUrl= end($imgName);
+
+        }
+
+        else{
+            $imgUrl = Null;
+        }
+
+        $update_avatar = UserDetails::updateOrCreate(
+            ['user_id' => $user_id],
+            [
+                'profile_pic' => $imgUrl,
+            ]
+        );
+
+        return $this->update_user($request, $user_id);
+
+
+    }*/
     public function update_user(Request $request, int $user_id)
     {
         $user = User::find($user_id);
@@ -169,6 +194,18 @@ class UserController extends Controller
         $currently_working = $request['current-work'] ? 1 : 0;
         $currently_studying = $request['current-education'] ? 1 : 0;
         $gender = $request['male'] ? 'male' : 'female' ;
+
+        if ($request->hasFile('avatar')){
+            $imgStore = $request->file('avatar')->store('/public/profile_pics');
+            $imgName = explode('/',$imgStore);
+            $imgUrl= end($imgName);
+
+        }
+
+        else{
+            $imgUrl = Null;
+        }
+
 
         $user_details = UserDetails::updateOrCreate(
             ['user_id' => $user_id],
@@ -193,6 +230,7 @@ class UserController extends Controller
                 'nationality' => $request['nationality'],
                 'about' => $request['about'],
                 'relationship_status' => $request['relation'],
+                'profile_pic' => $imgUrl,
             ]);
 
 
