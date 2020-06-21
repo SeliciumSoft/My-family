@@ -29,7 +29,19 @@
 
                     </ul>
 
-                    <form class="form" action="#" method="post" id="registrationForm">
+                    <form method="post"  class="form" action="{{route('user.update_user', Auth::guard('user')->user()->id)}}" id="registrationForm">
+
+                        @csrf
+                        @if(count($errors)>0)
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li class="alert alert-danger">
+                                        {{$error}}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+
                     <div class="tab-content">
                         <div class="tab-pane active" id="home">
                             <hr>
@@ -74,7 +86,8 @@
 
                                     <div class="col-xs-6">
                                         <label for="email"><h4>Country</h4></label>
-                                        <select class="form-control form-control-sm" name="country">
+
+                                       <select class="form-control form-control-sm" name="country">
                                             <option value="{{Auth::guard('user')->user()->UserDetails['country'] ?? ''}}" selected="selected" >{{Auth::guard('user')->user()->UserDetails['country'] ?? ''}}</option>
                                             <option value="Afghanistan">Afghanistan</option>
                                             <option value="Åland Islands">Åland Islands</option>
@@ -371,9 +384,19 @@
                                 <div class="form-group" >
                                     <div class="col-xs-6" style="margin-bottom: 20px">
                                         <label for="mobile"><h4>Relationship status</h4></label>
-                                        <input type="text" class="form-control" name="relation" id="relation" placeholder="enter relationship status" title="enter your relationship status." value="{{Auth::guard('user')->user()->UserDetails['relationship-status'] ?? ''}}">
+                                        <input type="text" class="form-control" name="relation" id="relation" placeholder="enter relationship status" title="enter your relationship status." value="{{Auth::guard('user')->user()->UserDetails['relationship_status'] ?? ''}}">
                                     </div>
                                 </div>
+                            <hr style="border: 1px solid #808080; border-radius: 5px;">
+                            <div class="form-group" >
+
+                                <div class="col-xs-12" style="margin-bottom: 15px">
+                                    <label for="email"><h4>About</h4></label>
+                                    <textarea type="text" height="50px" class="form-control" name="about" id="website" title="enter your website." rows="5">{{Auth::guard('user')->user()->UserDetails['about'] ?? ''}}</textarea>
+                                </div>
+                            </div>
+
+
                             <hr style="border: 1px solid #808080; border-radius: 5px;">
                                 <div class="form-group">
 
@@ -416,7 +439,7 @@
 
                                 <div class="col-xs-6">
                                     <label for="first_name"><h4>Education</h4></label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any." value="{{Auth::guard('user')->user()->UserDetails['education'] ?? ''}}">
+                                    <input type="text" class="form-control" name="education" id="education" placeholder="first name" title="enter your first name if any." value="{{Auth::guard('user')->user()->UserDetails['education'] ?? ''}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -437,7 +460,7 @@
 
                                 <div class="col-xs-6">
                                     <label for="phone"><h4>Education Country</h4></label>
-                                    <input type="text" class="form-control" name="education-country" id="education-country" placeholder="enter education country" title="enter your education country." value="{{Auth::guard('user')->user()->UserDetails['education-country'] ?? ''}}">
+                                    <input type="text" class="form-control" name="education-country" id="education-country" placeholder="enter education country" title="enter your education country." value="{{Auth::guard('user')->user()->UserDetails['education_country'] ?? ''}}">
                                 </div>
                             </div>
 
@@ -446,14 +469,14 @@
 
                                 <div class="col-xs-6">
                                     <label for="email"><h4>Highest Degree</h4></label>
-                                    <input type="text" class="form-control" name="highest-degree" id="email" placeholder="your highest degree" title="enter the highest degree you reached." value="{{Auth::guard('user')->user()->UserDetails['highest-degree'] ?? ''}}">
+                                    <input type="text" class="form-control" name="highest-degree" id="email" placeholder="your highest degree" title="enter the highest degree you reached." value="{{Auth::guard('user')->user()->UserDetails['highest_degree'] ?? ''}}">
                                 </div>
                             </div>
                             <div class="form-group">
 
                                 <div class="col-xs-6">
                                     <label for="email"><h4>Organization</h4></label>
-                                    <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location" value="{{Auth::guard('user')->user()->UserDetails['education-university'] ?? ''}}">
+                                    <input type="text" class="form-control" id="location" name="organization" placeholder="somewhere" title="enter a location" value="{{Auth::guard('user')->user()->UserDetails['education_university'] ?? ''}}">
                                 </div>
                             </div>
 
@@ -497,7 +520,7 @@
 
                                     <div class="col-xs-6">
                                         <label for="email"><h4>Country</h4></label>
-                                        <input type="text" class="form-control" name="work-country" id="email" placeholder="you working country" title="enter your work location." {{Auth::guard('user')->user()->UserDetails['work-country'] ?? ''}}>
+                                        <input type="text" class="form-control" name="work-country" id="email" placeholder="you working country" title="enter your work location." {{Auth::guard('user')->user()->UserDetails['work_country'] ?? ''}}>
                                     </div>
                                 </div>
 
@@ -513,6 +536,7 @@
                         </div>
 
                     </div><!--/tab-pane-->
+
                     </form>
 
                 </div><!--/tab-content-->

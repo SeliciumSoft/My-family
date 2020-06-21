@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use App\Admin;
 use App\User;
+use App\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
@@ -151,14 +153,59 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $user_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+    public function update_user(Request $request, int $user_id)
+    {
+        $user = User::find($user_id);
+
+        $user->firstName = $request['first_name'];
+        $user->lastName = $request['last_name'];
+        $user->birthDate = $request['birthdate'];
+        $user->email = $request['email'];
+
+        $currently_working = $request['current-work'] ? 1 : 0;
+        $currently_studying = $request['current-education'] ? 1 : 0;
+        $gender = $request['male'] ? 'male' : 'female' ;
+
+        $user_details = UserDetails::updateOrCreate(
+            ['user_id' => $user_id],
+            [
+                'phone' => $request['phone'],
+                'mobile' => $request['mobile'],
+                'website' => $request['website'],
+                'education' => $request['education'],
+                'country' => $request['country'],
+                'gender' => $gender,
+                'education_current' => $currently_studying,
+                'education_country' => $request['education-country'],
+                'highest_degree' => $request['highest-degree'],
+                'education_university' => $request['organization'],
+                'work' => $request['work'],
+                'work_current' => $currently_working,
+                'company' => $request['company'],
+                'work_country' => $request['work-country'],
+                'fb' => $request['fb'],
+                'twitter' => $request['tw'],
+                'instagram' => $request['instagram'],
+                'nationality' => $request['nationality'],
+                'about' => $request['about'],
+                'relationship_status' => $request['relation'],
+            ]);
+
+
+        $user->save();
+
+      return $this->show($user);
+
+
+    }
     public function update(Request $request, User $user)
     {
         //
-        $user = User::find($user->id);
+ /*       $user = User::find($user->id);
 
         $user->name = 'New Flight Name';
 
@@ -183,7 +230,7 @@ class UserController extends Controller
 
         ]);
         $user->save();
-        return $this->auth($request);
+        return $this->auth($request);*/
 
     }
 
