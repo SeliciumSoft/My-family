@@ -4,16 +4,28 @@
 
         <div class="container bootstrap snippet">
             <div class="row">
-                <div class="col-sm-10"><h1>User name</h1></div>
+                <div class="col-sm-10"><h1>{{Auth::guard('user')->user()->firstName.' '.Auth::guard('user')->user()->lastName }}</h1></div>
             </div>
             <div class="row">
+                <form method="post"  class="form" action="{{route('user.update_user', Auth::guard('user')->user()->id)}}" id="registrationForm"  enctype="multipart/form-data">
+
+                    @csrf
+                    @if(count($errors)>0)
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li class="alert alert-danger">
+                                    {{$error}}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 <div class="col-sm-3"><!--left col-->
 
 
                     <div class="text-center">
-                        <img src="{{asset('images/profile-picture.jpg')}}" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <img src="{{(empty(Auth::guard('user')->user()->UserDetails))  ?  asset('images/profile-picture.jpg') : ( Auth::guard('user')->user()->UserDetails['profile_pic'] == NULL ? asset('images/profile-picture.jpg') : asset('storage/profile_pics/'.Auth::guard('user')->user()->UserDetails['profile_pic']))}}" class="avatar img-circle img-thumbnail profile-pic" alt="avatar">
                         <h6>Upload a different photo...</h6>
-                        <input type="file" class="text-center center-block file-upload">
+                        <input type="file" class="text-center center-block file-upload" name="avatar">
                     </div>
                     <hr>
                     <br>
@@ -29,18 +41,7 @@
 
                     </ul>
 
-                    <form method="post"  class="form" action="{{route('user.update_user', Auth::guard('user')->user()->id)}}" id="registrationForm">
 
-                        @csrf
-                        @if(count($errors)>0)
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li class="alert alert-danger">
-                                        {{$error}}
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="home">
@@ -366,9 +367,9 @@
                                     </div>
                                     <div class="col-xs-6">
                                         <label for="last_name"><h4>Male</h4></label>
-                                        <input type="radio" class="form-check-input" name="male" id="male" {{ ! empty(Auth::guard('user')->user()->UserDetails['gender']) ? Auth::guard('user')->user()->UserDetails['gender'] == 'male' ? 'checked': '' : ''}}>
+                                        <input type="radio" class="form-check-input" name="male" id="male" {{ empty(Auth::guard('user')->user()->UserDetails) ? '' : (Auth::guard('user')->user()->UserDetails['gender'] == 'male' ? 'checked': '') }}>
                                         <label for="last_name"><h4>Female</h4></label>
-                                        <input type="radio" class="form-check-input" name="female" id="female" {{ ! empty(Auth::guard('user')->user()->UserDetails['gender']) ? Auth::guard('user')->user()->UserDetails['gender'] == 'female' ? 'checked': '' : ''}} >
+                                        <input type="radio" class="form-check-input" name="female" id="female" {{ empty(Auth::guard('user')->user()->UserDetails) ? '' : (Auth::guard('user')->user()->UserDetails['gender'] == 'female' ? 'checked': '') }} >
 
                                     </div>
                                 </div>
@@ -520,7 +521,7 @@
 
                                     <div class="col-xs-6">
                                         <label for="email"><h4>Country</h4></label>
-                                        <input type="text" class="form-control" name="work-country" id="email" placeholder="you working country" title="enter your work location." {{Auth::guard('user')->user()->UserDetails['work_country'] ?? ''}}>
+                                        <input type="text" class="form-control" name="work-country" id="email" placeholder="you working country" title="enter your work location."  value="{{Auth::guard('user')->user()->UserDetails['work_country'] ?? ''}}">
                                     </div>
                                 </div>
 

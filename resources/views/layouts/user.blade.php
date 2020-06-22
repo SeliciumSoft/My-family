@@ -15,6 +15,20 @@
 
 </head>
 <body>
+<style>
+    .img-circle{
+        width:30px;
+        height:30px;
+        object-fit:cover;
+    }
+
+    .profile-pic{
+        width:250px;
+        height:250px;
+        object-fit:cover;
+    }
+
+</style>
 <div class="mainbody container-fluid">
     <div class="row">
         <div class="navbar-wrapper">
@@ -44,7 +58,7 @@
                                 @if(Auth::guard('user')->user() != null)
                                     <li class="dropdown"><a href="#" class="dropdown-toggle"  data-toggle="dropdown">
                                     <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
-                                        <img src="{{asset('images/profile-picture.jpg')}}" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
+                                        <img src="{{(empty(Auth::guard('user')->user()->UserDetails))  ?  asset('images/profile-picture.jpg') : ( Auth::guard('user')->user()->UserDetails['profile_pic'] == NULL ? asset('images/profile-picture.jpg') : asset('storage/profile_pics/'.Auth::guard('user')->user()->UserDetails['profile_pic']))}}" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
                                     </span>
                                             <span class="user-name" >
 
@@ -59,7 +73,7 @@
                                                 <div class="navbar-content">
                                                     <div class="row">
                                                         <div class="col-md-5">
-                                                            <img src="{{asset('images/profile-picture.jpg')}}" alt="Alternate Text" class="img-responsive" width="120px" height="120px" />
+                                                            <img src="{{(empty(Auth::guard('user')->user()->UserDetails))  ?  asset('images/profile-picture.jpg') : ( Auth::guard('user')->user()->UserDetails['profile_pic'] == NULL ? asset('images/profile-picture.jpg') : asset('storage/profile_pics/'.Auth::guard('user')->user()->UserDetails['profile_pic']))}}" alt="Alternate Text" class="img-responsive" width="120px" height="120px" />
                                                             <p class="text-center small">
                                                                 <a href="#">Change Photo</a></p>
                                                         </div>

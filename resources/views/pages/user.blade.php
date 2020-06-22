@@ -7,21 +7,22 @@
             <div class="panel-body">
                 <div class="media">
                     <div align="center">
-                        <img class="thumbnail img-responsive" src="{{asset('images/profile-picture.jpg')}}" width="300px" height="300px">
+                        <img class="thumbnail img-responsive profile-pic" src="{{ (empty(Auth::guard('user')->user()->UserDetails))  ?  asset('images/profile-picture.jpg') : ( Auth::guard('user')->user()->UserDetails['profile_pic'] == NULL ? asset('images/profile-picture.jpg') : asset('storage/profile_pics/'.Auth::guard('user')->user()->UserDetails['profile_pic'])) }}"
+                             width="300px" height="300px">
                     </div>
                     <div class="media-body">
                         <hr>
                         <h3><strong>Bio</strong></h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel gravida metus, non ultrices sapien. Morbi odio metus, dapibus non nibh id amet.</p>
+                        <p>{{empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->UserDetails['about']}}</p>
                         <hr>
                         <h3><strong>Location</strong></h3>
-                        <p>Earth</p>
+                        <p>{{ empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->UserDetails['country'] }}</p>
                         <hr>
                         <h3><strong>Gender</strong></h3>
-                        <p>Unknown</p>
+                        <p>{{ empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->UserDetails['gender'] }}</p>
                         <hr>
                         <h3><strong>Birthday</strong></h3>
-                        <p>January 01 1901</p>
+                        <p>{{empty(Auth::guard('user')->user()->UserDetails) ? '': date("F j, Y", strtotime(Auth::guard('user')->user()->birthDate))   ?? ''}}</p>
                     </div>
                 </div>
             </div>
@@ -110,18 +111,18 @@
                     </ul>
                     <p class="card-description">Contact Information</p>
                     <ul class="about">
-                        <li class="about-items"><i class="mdi mdi-phone icon-sm "></i><span class="about-item-name">Phone:</span><span class="about-item-detail">{{Auth::guard('user')->user()->UserDetails['mobile'] ?? ''}}</span></li>
-                        <li class="about-items"><i class="mdi mdi-map-marker icon-sm "></i><span class="about-item-name">Address:</span><span class="about-item-detail">{{Auth::guard('user')->user()->UserDetails['country'] ?? ''}}</span> </li>
-                        <li class="about-items"><i class="mdi mdi-email-outline icon-sm "></i><span class="about-item-name">Email:</span><span class="about-item-detail"><a href="">{{Auth::guard('user')->user()->email ?? ''}}</a></span> </li>
-                        <li class="about-items"><i class="mdi mdi-web icon-sm "></i><span class="about-item-name">Site:</span><span class="about-item-detail"><a href="google.com">{{Auth::guard('user')->user()->UserDetails['website'] ?? ''}}</a></span> </li>
+                        <li class="about-items"><i class="mdi mdi-phone icon-sm "></i><span class="about-item-name">Phone:</span><span class="about-item-detail">{{empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->UserDetails['mobile']}}</span></li>
+                        <li class="about-items"><i class="mdi mdi-map-marker icon-sm "></i><span class="about-item-name">Address:</span><span class="about-item-detail">{{empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->UserDetails['country'] }}</span> </li>
+                        <li class="about-items"><i class="mdi mdi-email-outline icon-sm "></i><span class="about-item-name">Email:</span><span class="about-item-detail"><a href="">{{empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->email}}</a></span> </li>
+                        <li class="about-items"><i class="mdi mdi-web icon-sm "></i><span class="about-item-name">Site:</span><span class="about-item-detail"><a href="google.com">{{empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->UserDetails['website'] ?? ''}}</a></span> </li>
                     </ul>
                     <p class="card-description">Basic Information</p>
                     <ul class="about">
-                        <li class="about-items"><i class="mdi mdi-cake icon-sm "></i><span class="about-item-name">Birthday:</span><span class="about-item-detail">{{date("F j, Y", strtotime(Auth::guard('user')->user()->birthDate))   ?? ''}}</span></li>
-                        <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Gender:</span><span class="about-item-detail">{{Auth::guard('user')->user()->UserDetails['gender'] ?? ''}}</span> </li>
-                        <li class="about-items"><i class="mdi mdi-clipboard-account icon-sm "></i><span class="about-item-name">Profession:</span><span class="about-item-detail">{{Auth::guard('user')->user()->UserDetails['occupation'] ?? ''}}</span> </li>
+                        <li class="about-items"><i class="mdi mdi-cake icon-sm "></i><span class="about-item-name">Birthday:</span><span class="about-item-detail">{{empty(Auth::guard('user')->user()->UserDetails) ? '': date("F j, Y", strtotime(Auth::guard('user')->user()->birthDate)) }}</span></li>
+                        <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Gender:</span><span class="about-item-detail">{{empty(Auth::guard('user')->user()->UserDetails) ? '': Auth::guard('user')->user()->UserDetails['gender'] }}</span> </li>
+                        <li class="about-items"><i class="mdi mdi-clipboard-account icon-sm "></i><span class="about-item-name">Profession:</span><span class="about-item-detail">{{empty(Auth::guard('user')->user()->UserDetails) ? '': (Auth::guard('user')->user()->UserDetails['work_current'] == 1 ? Auth::guard('user')->user()->UserDetails['work'] : (Auth::guard('user')->user()->UserDetails['education_current'] == 1 ? Auth::guard('user')->user()->UserDetails['education']  : '')) }}</span> </li>
                         <li class="about-items"><i class="mdi mdi-water icon-sm "></i><span class="about-item-name">Blood Group:</span><span class="about-item-detail">AB+</span> </li>
-                        <li class="about-items"><i class="mdi mdi-human-male-female icon-sm "></i><span class="about-item-name">Relationship Status:</span><span class="about-item-detail">{{Auth::guard('user')->user()->UserDetails['relationship-status'] ?? ''}}</span></li>
+                        <li class="about-items"><i class="mdi mdi-human-male-female icon-sm "></i><span class="about-item-name">Relationship Status:</span><span class="about-item-detail">{{empty(Auth::guard('user')->user()->UserDetails) ? '' :  Auth::guard('user')->user()->UserDetails['relationship_status'] }}</span></li>
                     </ul>
 
 

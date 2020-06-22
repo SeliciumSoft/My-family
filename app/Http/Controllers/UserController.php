@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller
 {
@@ -170,6 +171,18 @@ class UserController extends Controller
         $currently_studying = $request['current-education'] ? 1 : 0;
         $gender = $request['male'] ? 'male' : 'female' ;
 
+        if ($request->hasFile('avatar')){
+            $imgStore = $request->file('avatar')->store('/public/profile_pics');
+            $imgName = explode('/',$imgStore);
+            $imgUrl= end($imgName);
+
+        }
+
+        else{
+            $imgUrl = $user->Userdetails->profile_pic ?? Null;
+        }
+
+
         $user_details = UserDetails::updateOrCreate(
             ['user_id' => $user_id],
             [
@@ -193,6 +206,7 @@ class UserController extends Controller
                 'nationality' => $request['nationality'],
                 'about' => $request['about'],
                 'relationship_status' => $request['relation'],
+                'profile_pic' => $imgUrl,
             ]);
 
 
