@@ -30,7 +30,6 @@ class UserDetails extends Model
         'nationality',
         'about',
         'relationship_status',
-        'profile_pic',
     ];
 
     public function user()

@@ -6,28 +6,14 @@
             <div class="row">
                 <div class="col-sm-10"><h1>User name</h1></div>
             </div>
-
             <div class="row">
-                <form method="post" class="form" action="{{route('user.update_user', Auth::guard('user')->user()->id)}}" id="registrationForm" enctype="multipart/form-data">
-
-                    @csrf
-                    @if(count($errors)>0)
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li class="alert alert-danger">
-                                    {{$error}}
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-
                 <div class="col-sm-3"><!--left col-->
 
 
                     <div class="text-center">
-                        <img src="{{asset('storage/profile_pics/'.Auth::guard('user')->user()->UserDetails['profile_pic'] ?? '')}}" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <img src="{{asset('images/profile-picture.jpg')}}" class="avatar img-circle img-thumbnail" alt="avatar">
                         <h6>Upload a different photo...</h6>
-                        <input type="file" name="avatar" accept="image/*" class="text-center center-block file-upload">
+                        <input type="file" class="text-center center-block file-upload">
                     </div>
                     <hr>
                     <br>
@@ -43,7 +29,18 @@
 
                     </ul>
 
+                    <form method="post"  class="form" action="{{route('user.update_user', Auth::guard('user')->user()->id)}}" id="registrationForm">
 
+                        @csrf
+                        @if(count($errors)>0)
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li class="alert alert-danger">
+                                        {{$error}}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="home">
