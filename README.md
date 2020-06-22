@@ -33,3 +33,25 @@ The Laravel application is open-sourced software.
 ## Credit
 
 The template is designed by [Colorlib](https://colorlib.com/)
+
+## ScreenShots
+
+![Alt text](public/images/screen_shots/1.png?raw=true "Title")
+
+
+![Alt text](public/images/screen_shots/2.png?raw=true "Title")
+
+
+![Alt text](public/images/screen_shots/4.png?raw=true "Title")
+
+
+![Alt text](public/images/screen_shots/5.png?raw=true "Title")
+
+
+![Alt text](public/images/screen_shots/6.png?raw=true "Title")
+
+
+![Alt text](public/images/screen_shots/7.png?raw=true "Title")
+
+
+![Alt text](public/images/screen_shots/8.png?raw=true "Title")
